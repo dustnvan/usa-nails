@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import 'tailwindcss';
+/* Primary	#1E3A8A (Dark Blue)	Trusted, calm base color
+Accent / CTA	#DC2626 (Red-600)	For buttons, highlights
+Light Background	#F9FAFB (white)	Clean, modern background
+Text (main)	#111827 (Gray-900)	Easy to read
+Secondary text	#6B7280 (Gray-500)	Labels, descriptions
+Border / subtle bg	#E5E7EB (Gray-200)	Input borders, section dividers */
+@theme {
+  --color-blue: #1e3a8a;
+  --color-red: #dc2626;
+  --color-white: #f9fafb;
+  --color-dark-gray: #111827;
+  --color-mid-gray: #6b7280;
+  --color-light-gray: #e5e7eb;
+  --font-display: Roboto, 'Helvetica Neue', Helvetica;
+}
+
+@custom-variant hover (&:hover);
