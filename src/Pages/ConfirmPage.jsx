@@ -2,15 +2,22 @@ import Header from '../components/Header';
 import SubHeader from '../components/SubHeader';
 import SelectionSummary from '../components/SelectionSummary';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ConfirmPage = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const { selectedStaff, selectedService } = location.state || {};
 
   return (
     <div className="bg-white px-2 font-display h-screen">
       <Header />
-      <SubHeader text="Your Appointment" previousPage="/" />
+      <SubHeader
+        text="Your Appointment"
+        backButtonAction={() => {
+          navigate('/');
+        }}
+      />
 
       <SelectionSummary
         selectedStaff={selectedStaff}

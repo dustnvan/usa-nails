@@ -6,7 +6,6 @@ const servicesData = [
       { name: 'Acrylic Fill-in', price: '$35+ & up' },
       { name: 'White tip', price: '$45+ & up' },
     ],
-    staff: [],
   },
   {
     name: 'Dip Powder Services',
@@ -14,7 +13,6 @@ const servicesData = [
       { name: 'Dip Full Set', price: '$50+ & up' },
       { name: 'Dip Fill-in', price: '$45+ & up' },
     ],
-    staff: [],
   },
   {
     name: 'Ombre Services',
@@ -22,7 +20,6 @@ const servicesData = [
       { name: 'Ombre Full Set', price: '$60+ & up' },
       { name: 'Ombre Fill-in', price: '$45+ & up' },
     ],
-    staff: [],
   },
   {
     name: 'Mani/Pedi',
@@ -33,7 +30,6 @@ const servicesData = [
       { name: 'Finger Nails Polish Change', price: '$25+ & up' },
       { name: 'Toe Nails Full Set', price: '$55+ & up' },
     ],
-    staff: [],
   },
   {
     name: 'Additional Services',
@@ -45,7 +41,6 @@ const servicesData = [
       { name: 'Nail Soak Off / Take Off', price: '$5+ & up' },
       { name: 'French', price: '$5+ & up' },
     ],
-    staff: [],
   },
   {
     name: 'Waxing Services',
@@ -56,7 +51,6 @@ const servicesData = [
       { name: 'Chin', price: '$25+ & up' },
       { name: 'Eyebrows Tint', price: '$25+ & up' },
     ],
-    staff: [],
   },
 ];
 

@@ -16,4 +16,8 @@ Border / subtle bg	#E5E7EB (Gray-200)	Input borders, section dividers */
   --font-display: Roboto, 'Helvetica Neue', Helvetica;
 }
 
+@utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
+
 @custom-variant hover (&:hover);

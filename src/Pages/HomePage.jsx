@@ -4,11 +4,11 @@ import StaffModal from '../components/StaffModal';
 import Header from '../components/Header';
 import Staff from '../components/Staff';
 import SubHeader from '../components/SubHeader';
-import { useState } from 'react';
+import { use, useState } from 'react';
 import Searchbar from '../components/Searchbar';
 import { useEffect } from 'react';
 
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const [view, setView] = useState('service'); // could be: 'service', 'staff', 'staffService'
@@ -18,26 +18,37 @@ const HomePage = () => {
 
   const navigate = useNavigate();
 
-  if (selectedStaff && selectedService) {
-    const [staff, service] = [selectedStaff, selectedService];
-    // to close modal and reset states before navigating
-    setSelectedStaff(null);
-    setSelectedService(null);
-    setTimeout(() => {
-      navigate('/Confirm', {
-        state: {
-          selectedStaff: staff,
-          selectedService: service,
-        },
-      });
-    }, 300);
-  }
-
   useEffect(() => {
-    if (view == 'staff') {
+    if (selectedStaff && view === 'staff') {
       setView('staffService');
+      return;
     }
-  }, [selectedStaff]);
+
+    if (selectedStaff && selectedService) {
+      const [staff, service] = [selectedStaff, selectedService];
+      // to close modal and reset states before navigating
+      setSelectedStaff(null);
+      setSelectedService(null);
+      if (view === 'staffService') {
+        navigate('/confirm', {
+          state: {
+            selectedStaff: staff,
+            selectedService: service,
+          },
+        });
+      } else {
+        setTimeout(() => {
+          navigate('/confirm', {
+            state: {
+              selectedStaff: staff,
+              selectedService: service,
+            },
+          });
+        }, 500);
+      }
+    }
+  }, [selectedStaff, selectedService, view]);
+
   return (
     <div className="bg-white px-2 font-display h-screen ">
       <Header />
@@ -65,7 +76,13 @@ const HomePage = () => {
         {view === 'staffService' && (
           <>
             <Searchbar view={view} setSearchQuery={setSearchQuery} />
-            <SubHeader text="Select Service" previousPage="/" />
+            <SubHeader
+              text="Select Service"
+              backButtonAction={() => {
+                setView('staff');
+                setSelectedStaff(null);
+              }}
+            />
             <Services
               searchQuery={searchQuery}
               setSelectedService={setSelectedService}

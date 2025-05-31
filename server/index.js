@@ -1,13 +1,24 @@
-const express = require('express');
-const app = express();
-app.listen(5000, () => console.log('Server is running'));
-require('dotenv').config();
+import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import categoryRoutes from './routes/category.routes.js';
 
-const mongoose = require('mongoose');
+dotenv.config();
+
+const app = express();
+app.use(express.urlencoded({ extended: true }));
+
+// Middleware
+app.use(express.json());
+
+// Routes
+app.use('/api/categories', categoryRoutes);
+
 mongoose
   .connect(process.env.MONGODB_URI)
-  .then(() => console.log('✅ MongoDB connected'))
-  .catch((err) => {
-    console.error('❌ MongoDB connection error:', err.message);
-    process.exit(1);
-  });
+  .then(() => {
+    app.listen(3000, () => {
+      console.log('Server running on http://localhost:3000');
+    });
+  })
+  .catch(console.error);

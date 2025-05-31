@@ -1,17 +1,15 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
-import SelectionSummary from './SelectionSummary';
 
-const SubHeader = ({ text, previousPage }) => {
+const SubHeader = ({ text, backButtonAction }) => {
   return (
     <div className="bg-light-gray flex max-w-140 justify-center items-center mx-auto relative py-2 rounded-lg mt-10  text-lg text-dark-gray">
-      <Link
-        to={previousPage}
+      <div
         className="absolute left-4 w-6 text-center cursor-pointer"
+        onClick={backButtonAction}
       >
         <FontAwesomeIcon icon={faAngleLeft} />
-      </Link>
+      </div>
       <span className="font-semibold">{text}</span>
     </div>
   );
