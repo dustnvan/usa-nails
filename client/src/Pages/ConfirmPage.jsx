@@ -10,6 +10,7 @@ const ConfirmPage = () => {
 
   const { selections = [] } = location.state || {};
 
+  // If no selections, redirect to home
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -30,7 +31,7 @@ const ConfirmPage = () => {
   };
 
   return (
-    <div className="bg-white px-2 font-display h-screen">
+    <>
       <Header />
       <SubHeader text="Your Appointment" backButtonAction={handleBackButton} />
 
@@ -65,7 +66,7 @@ const ConfirmPage = () => {
           </button>
         </div>
       </nav>
-    </div>
+    </>
   );
 };
 export default ConfirmPage;

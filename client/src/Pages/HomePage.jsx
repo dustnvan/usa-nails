@@ -54,7 +54,7 @@ const HomePage = () => {
   }, [selectedStaff, selectedService, view]);
 
   return (
-    <div className="bg-white px-2 font-display h-screen ">
+    <>
       <Header />
       <div className="text-lg font-bold text-dark-gray ">
         {
@@ -127,7 +127,7 @@ const HomePage = () => {
         setSelectedService={setSelectedService}
         setSelectedStaff={setSelectedStaff}
       />
-    </div>
+    </>
   );
 };
 export default HomePage;

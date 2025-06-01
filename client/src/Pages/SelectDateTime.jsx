@@ -3,7 +3,7 @@ import SubHeader from '../components/SubHeader';
 import Header from '../components/Header';
 import TimeSelector from '../components/SelectTime';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const SelectDateTime = () => {
@@ -19,8 +19,23 @@ const SelectDateTime = () => {
   const [selectedDateTime, setSelectedDateTime] = useState(currentDateTime);
   const [finishedSelections, setFinishedSelections] = useState(false);
 
+  // If no selections, redirect to home
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (selections.length === 0) {
+      navigate('/');
+    } else {
+      setLoading(false);
+    }
+  }, [selections, navigate]);
+
+  if (loading) {
+    return;
+  }
+
   return (
-    <div className="bg-white px-2 font-display ">
+    <>
       <Header />
       <SubHeader
         text="Select Date/Time"
@@ -68,7 +83,7 @@ const SelectDateTime = () => {
           Next
         </button>
       </div>
-    </div>
+    </>
   );
 };
 export default SelectDateTime;
