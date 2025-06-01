@@ -29,6 +29,9 @@ Border / subtle bg	#E5E7EB (Gray-200)	Input borders, section dividers */
   font-family: var(--font-display);
   line-height: 1.125em;
   margin: 0 auto;
+  border: 1px solid var(--color-light-gray);
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 1em;
 }
 
 .react-calendar--doubleView {
@@ -56,7 +59,7 @@ Border / subtle bg	#E5E7EB (Gray-200)	Input borders, section dividers */
 
 .react-calendar button {
   margin: 0;
-  border: 0;
+  /* border: 0; */
   outline: none;
 }
 
@@ -101,7 +104,9 @@ Border / subtle bg	#E5E7EB (Gray-200)	Input borders, section dividers */
   font-size: 1em;
   font-weight: bold;
   text-decoration: none;
-  border-bottom: 0.0625em solid var(--color-light-gray);
+  border-bottom: 0.1em solid var(--color-light-gray);
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 .react-calendar__month-view__weekdays__weekday {
@@ -121,11 +126,6 @@ Border / subtle bg	#E5E7EB (Gray-200)	Input borders, section dividers */
   font-weight: bold;
 }
 
-.react-calendar__month-view__days__day {
-  width: 50px;
-  height: 50px;
-}
-
 .react-calendar__month-view__days__day--neighboringMonth,
 .react-calendar__decade-view__years__year--neighboringDecade,
 .react-calendar__century-view__decades__decade--neighboringCentury {
@@ -135,22 +135,24 @@ Border / subtle bg	#E5E7EB (Gray-200)	Input borders, section dividers */
 .react-calendar__year-view .react-calendar__tile,
 .react-calendar__decade-view .react-calendar__tile,
 .react-calendar__century-view .react-calendar__tile {
-  padding: 2em 0.5em;
+  /* padding: 2em 0.5em; */
 }
 
 .react-calendar__tile {
   text-align: center;
   border-radius: 50%;
+  max-width: 40px;
+  height: 40px;
 }
 
 .react-calendar__tile:disabled {
-  color: #ababab;
+  color: #e3d9d9;
 }
 
 .react-calendar__month-view__days__day--neighboringMonth:disabled,
 .react-calendar__decade-view__years__year--neighboringDecade:disabled,
 .react-calendar__century-view__decades__decade--neighboringCentury:disabled {
-  color: #cdcdcd;
+  color: #e3d9d9;
 }
 
 .react-calendar__tile:enabled:hover,
@@ -159,13 +161,12 @@ Border / subtle bg	#E5E7EB (Gray-200)	Input borders, section dividers */
 }
 
 .react-calendar__tile--now {
-  color: var(--color-blue);
-  font-weight: 900;
+  border: 1px solid var(--color-red);
 }
 
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
-  background: var(--color-red);
+  /* background: var(--color-red); */
 }
 
 .react-calendar__tile--hasActive {
