@@ -2,7 +2,7 @@ import Calendar from 'react-calendar';
 import { useState } from 'react';
 import Header from '../components/Header';
 import SubHeader from '../components/SubHeader';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const SelectDate = () => {
   const currentDate = new Date();
@@ -12,6 +12,8 @@ const SelectDate = () => {
 
   const [selectedDate, setSelectedDate] = useState(currentDate);
   const navigate = useNavigate();
+  const location = useLocation();
+  const { selections = [] } = location.state || {};
 
   return (
     <div className="bg-white px-2 font-display h-screen ">
@@ -19,11 +21,11 @@ const SelectDate = () => {
       <SubHeader
         text="Select Date/Time"
         backButtonAction={() => {
-          navigate('/confirm');
+          navigate('/confirm', { state: { selections } });
         }}
         className="text-center text-2xl font-bold mt-4"
       />
-      <div className="max-w-100 mx-auto mt-10">
+      <div className="max-w-100 mx-auto mt-10 flex">
         <Calendar
           onChange={setSelectedDate}
           value={selectedDate}

@@ -35,9 +35,6 @@ const HomePage = () => {
         staff: selectedStaff,
       };
 
-      sessionStorage.setItem('selectedService', selectedService);
-      sessionStorage.setItem('selectedStaff', selectedStaff);
-
       // to close modal and reset states before navigating
       setSelectedStaff(null);
       setSelectedService(null);
