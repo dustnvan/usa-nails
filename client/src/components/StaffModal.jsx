@@ -51,7 +51,10 @@ const StaffModal = ({
                 </span>
               </div>
             </div>
-            <Staff setSelectedStaff={setSelectedStaff} />
+            <Staff
+              setSelectedStaff={setSelectedStaff}
+              selectedService={selectedService}
+            />
           </motion.div>
         </motion.div>
       )}

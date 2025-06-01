@@ -2,6 +2,7 @@ import ConfirmPage from './Pages/ConfirmPage';
 import HomePage from './Pages/HomePage';
 import AdminPage from './Pages/AdminPage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SelectDate from './Pages/SelectDate';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/confirm" element={<ConfirmPage />} />
+          <Route path="/select-date" element={<SelectDate />} />
           <Route path="/admin" element={<AdminPage />} />
         </Routes>
       </Router>

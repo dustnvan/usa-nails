@@ -1,11 +1,29 @@
 import ServiceCategory from './ServiceCategory';
 import ServiceOption from './ServiceOption';
-import servicesData from '../data/services';
+import serviceData from '../data/services';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Dropdown = ({ serviceCategoryName, setSelectedService }) => {
+const Dropdown = ({
+  serviceCategoryName,
+  setSelectedService,
+  selectedStaff = null,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  // Filter service data based on selected staff
+  const filteredServiceData = selectedStaff
+    ? serviceData.filter((service) =>
+        selectedStaff.servicesProvided.includes(service.name)
+      )
+    : serviceData;
+
+  // Check if there are any services in the category that are visible
+  const hasVisibleServices = filteredServiceData.some(
+    (service) => service.categoryName === serviceCategoryName
+  );
+
+  if (!hasVisibleServices) return null;
 
   return (
     <div>
@@ -25,13 +43,12 @@ const Dropdown = ({ serviceCategoryName, setSelectedService }) => {
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="overflow-hidden"
           >
-            {servicesData
-              .find((category) => category.name === serviceCategoryName)
-              .services.map((service) => (
+            {filteredServiceData
+              .filter((service) => service.categoryName === serviceCategoryName)
+              .map((service) => (
                 <ServiceOption
                   key={service.name}
-                  name={service.name}
-                  price={service.price}
+                  service={service}
                   setSelectedService={setSelectedService}
                 />
               ))}

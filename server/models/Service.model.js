@@ -3,7 +3,7 @@ import { Schema, model } from 'mongoose';
 const serviceSchema = new Schema({
   name: { type: String, required: true },
   category: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Category',
     required: true,
   },

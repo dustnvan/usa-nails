@@ -1,12 +1,20 @@
 import StaffBtn from './StaffBtn';
 import staffData from '../data/staff';
 
-const Staff = ({ searchQuery, setSelectedStaff }) => {
-  const filteredStaff = searchQuery
+const Staff = ({ searchQuery, setSelectedStaff, selectedService = null }) => {
+  // Filter staff data based on selected service
+  let filteredStaff = selectedService
     ? staffData.filter((staff) =>
-        staff.name.toLowerCase().includes(searchQuery.toLowerCase())
+        staff.servicesProvided.includes(selectedService.name)
       )
     : staffData;
+
+  // Further filter staff based on search query
+  filteredStaff = searchQuery
+    ? filteredStaff.filter((staff) =>
+        staff.name.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : filteredStaff;
 
   return (
     <div>
@@ -14,7 +22,7 @@ const Staff = ({ searchQuery, setSelectedStaff }) => {
         {filteredStaff.map((staff) => (
           <StaffBtn
             key={staff.name}
-            name={staff.name}
+            staff={staff}
             setSelectedStaff={setSelectedStaff}
           />
         ))}
