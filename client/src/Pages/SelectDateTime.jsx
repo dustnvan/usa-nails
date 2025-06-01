@@ -71,7 +71,7 @@ const SelectDateTime = () => {
         <button
           className={`bg-red text-white px-20 py-2 rounded-lg font-semibold text-lg transition-opacity duration-600 ${
             finishedSelections
-              ? 'opacity-100 pointer-events-auto'
+              ? 'opacity-100 pointer-events-auto cursor-pointer'
               : 'opacity-0 pointer-events-none'
           }`}
           onClick={() => {
