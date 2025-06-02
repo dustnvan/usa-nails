@@ -16,7 +16,7 @@ const Services = ({
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/categories`
+          `${process.env.NREACT_APP_RENDER_API}/api/categories`
         );
         setCategories(response.data);
         setLoading(false);

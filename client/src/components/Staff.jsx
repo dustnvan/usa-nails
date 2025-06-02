@@ -12,7 +12,7 @@ const Staff = ({ searchQuery, setSelectedStaff, selectedService = null }) => {
     const fetchStaff = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/staff`
+          `${process.env.REACT_APP_RENDER_API}/api/staff`
         );
         setStaff(response.data);
         setLoading(false);

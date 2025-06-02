@@ -18,7 +18,7 @@ const Dropdown = ({
     const fetchServices = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/services`
+          `${process.env.REACT_APP_RENDER_API}/api/services`
         );
         setServices(response.data);
         setLoading(false);
