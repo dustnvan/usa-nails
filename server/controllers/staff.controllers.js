@@ -1,4 +1,4 @@
-import Staff from '../models/staff.model.js';
+import Staff from '../models/Staff.model.js';
 
 const getStaff = async (req, res) => {
   try {
