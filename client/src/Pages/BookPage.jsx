@@ -41,7 +41,6 @@ const BookPage = () => {
   };
 
   const handleSubmit = (e) => {
-    console.log(window.innerWidth);
     e.preventDefault();
 
     if (!validateForm()) {
@@ -167,8 +166,8 @@ const BookPage = () => {
         <div>
           <Confetti
             numberOfPieces={100}
-            width={window.innerWidth - 1}
-            height={window.innerHeight - 1}
+            width={window.innerWidth}
+            height={window.innerHeight}
             initialVelocityY={20}
             initialVelocityX={20}
             confettiSource={{

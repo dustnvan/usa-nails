@@ -66,7 +66,7 @@ const SelectDateTime = () => {
       <p className="max-w-md mx-auto text-center">
         Business Time: {datePart} - {timePart}
       </p>
-      <div className="mx-auto mt-10 flex justify-center flex-wrap gap-4">
+      <div className="mx-auto mt-10 flex justify-center flex-wrap gap-4 ">
         <div>
           <Calendar
             onChange={setSelectedDateTime}

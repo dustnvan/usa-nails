@@ -64,7 +64,7 @@ const TimeSelector = ({
               return (
                 <button
                   key={index}
-                  className="py-2 border-2 border-gray-300 bg-gray-300 rounded-xl"
+                  className="py-2 px-2 border-2 border-gray-300 bg-gray-300 rounded-xl"
                 >
                   {slotString}
                 </button>
