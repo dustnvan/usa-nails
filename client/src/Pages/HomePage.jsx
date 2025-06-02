@@ -59,7 +59,7 @@ const HomePage = () => {
     <>
       <Header />
       <div className="text-lg font-bold text-dark-gray ">
-        {selections.length > 0 && (
+        {selections.length > 0 ? (
           // User is adding services to existing selections
           <>
             <Searchbar view={view} setSearchQuery={setSearchQuery} />
@@ -76,20 +76,24 @@ const HomePage = () => {
               setSelectedService={setSelectedService}
             />
           </>
+        ) : (
+          <>
+            {
+              // If no selections, show the main service selection view
+              view === 'service' && (
+                <>
+                  <HomeOptionNav view={view} setView={setView} />
+                  <Searchbar view={view} setSearchQuery={setSearchQuery} />
+                  <Services
+                    searchQuery={searchQuery}
+                    setSelectedService={setSelectedService}
+                  />
+                </>
+              )
+            }
+          </>
         )}
-        {
-          // If no selections, show the main service selection view
-          view === 'service' && (
-            <>
-              <HomeOptionNav view={view} setView={setView} />
-              <Searchbar view={view} setSearchQuery={setSearchQuery} />
-              <Services
-                searchQuery={searchQuery}
-                setSelectedService={setSelectedService}
-              />
-            </>
-          )
-        }
+
         {
           // Selecting staff first, then service
           view === 'staff' && (
