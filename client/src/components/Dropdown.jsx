@@ -19,7 +19,7 @@ const Dropdown = ({
     const fetchServices = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_RENDER_API}/api/services`
+          `${process.env.VITE_RENDER_API}/api/services`
         );
         setServices(response.data);
         setLoading(false);

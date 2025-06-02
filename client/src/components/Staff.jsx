@@ -12,7 +12,7 @@ const Staff = ({ searchQuery, setSelectedStaff, selectedService = null }) => {
     const fetchStaff = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_RENDER_API}/api/staff`
+          `${process.env.VITE_RENDER_API}/api/staff`
         );
         setStaff(response.data);
         setLoading(false);

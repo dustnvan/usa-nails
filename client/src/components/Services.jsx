@@ -16,7 +16,7 @@ const Services = ({
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_RENDER_API}/api/categories`
+          `${process.env.VITE_RENDER_API}/api/categories`
         );
         setCategories(response.data);
         setLoading(false);
