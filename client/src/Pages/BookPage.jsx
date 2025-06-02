@@ -1,13 +1,15 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { InputMask } from '@react-input/mask';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import Header from '../components/Header';
 import SubHeader from '../components/SubHeader';
 import { validatePhoneNum, validateName } from '../utils/validation';
+import Confetti from 'react-confetti';
 
 const BookPage = () => {
+  const submitButtonRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
   const { selections = [], selectedDateTime } = location.state || {};
@@ -17,6 +19,7 @@ const BookPage = () => {
   const [agreed, setAgreed] = useState(true);
   const [phoneError, setPhoneError] = useState('');
   const [nameError, setNameError] = useState('');
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   // If no selections, redirect to home
   const [loading, setLoading] = useState(true);
@@ -38,6 +41,7 @@ const BookPage = () => {
   };
 
   const handleSubmit = (e) => {
+    console.log(window.innerWidth);
     e.preventDefault();
 
     if (!validateForm()) {
@@ -60,11 +64,13 @@ const BookPage = () => {
       service: selections,
     };
 
-    alert(
-      `Thank you ${name}! Your appointment has been booked on ${formattedDate}.`
-    );
+    setFormSubmitted(true);
 
-    navigate('/');
+    // alert(
+    //   `Thank you ${name}! Your appointment has been booked on ${formattedDate}.`
+    // );
+
+    // navigate('/');
   };
 
   return (
@@ -97,7 +103,6 @@ const BookPage = () => {
             <p className="text-xs text-red absolute ">{nameError}</p>
           )}
         </div>
-
         <div className="w-full  max-w-sm relative">
           <InputMask
             type="tel"
@@ -144,18 +149,46 @@ const BookPage = () => {
             </span>
           </label>
         </div>
-
-        <input
-          type="submit"
-          className={`rounded-lg p-2 w-full mt-8 max-w-xs font-bold text-xl ${
-            validateForm()
-              ? 'bg-red text-white cursor-pointer'
-              : 'bg-light-gray text-mid-gray opacity-50'
-          }`}
-          value="Book Appointment"
-          disabled={!validateForm()}
-        />
+        <div className="relative">
+          <input
+            type="submit"
+            className={`rounded-lg p-2 w-full mt-8 max-w-xs font-bold text-xl ${
+              validateForm()
+                ? 'bg-red text-white cursor-pointer'
+                : 'bg-light-gray text-mid-gray opacity-50'
+            }`}
+            value="Book Appointment"
+            disabled={!validateForm()}
+            ref={submitButtonRef}
+          />
+        </div>
       </form>
+      {formSubmitted && (
+        <div>
+          <Confetti
+            numberOfPieces={100}
+            width={window.innerWidth - 1}
+            height={window.innerHeight - 1}
+            initialVelocityY={20}
+            initialVelocityX={20}
+            confettiSource={{
+              x:
+                submitButtonRef.current.getBoundingClientRect().left +
+                submitButtonRef.current.offsetWidth / 2,
+              y:
+                submitButtonRef.current.getBoundingClientRect().top +
+                submitButtonRef.current.offsetHeight / 2,
+            }}
+            recycle={false}
+            tweenDuration={300}
+            onConfettiComplete={() => {
+              navigate('/');
+            }}
+            gravity={0.3}
+          />
+        </div>
+      )}
+      ;
     </>
   );
 };

@@ -8,9 +8,13 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { toZonedTime } from 'date-fns-tz';
 
 const timeZone = 'America/Chicago';
+const apptDaysBuffer = 0;
 
 let currentDateTime = new Date();
 currentDateTime = toZonedTime(currentDateTime, timeZone);
+
+const apptStartTime = new Date(currentDateTime);
+apptStartTime.setDate(apptStartTime.getDate() + apptDaysBuffer);
 
 const datePart = currentDateTime.toLocaleDateString('en-US', {
   month: 'numeric',
@@ -70,7 +74,7 @@ const SelectDateTime = () => {
             prev2Label={null}
             next2Label={null}
             maxDate={thirtyDaysFromNow}
-            minDate={currentDateTime}
+            minDate={apptStartTime}
             calendarType="hebrew"
             minDetail="month"
             formatShortWeekday={(locale, date) => {

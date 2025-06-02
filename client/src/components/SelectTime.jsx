@@ -9,19 +9,19 @@ const TimeSelector = ({
   const startHour = 9;
   const endHour = 19;
   const interval = 15;
-  const apptBufferHours = 1; // 1 hour gap from current time for no appointments
+  const apptHoursBuffer = 1; // hour buffer before appointments start
   const timeZone = 'America/Chicago'; // Adjust to your desired time zone
 
-  let apptsStartTime = new Date(); // appointments start time in central time
-  apptsStartTime = toZonedTime(apptsStartTime, timeZone);
-  apptsStartTime.setHours(apptsStartTime.getHours() + apptBufferHours);
+  let apptStartTime = new Date(); // appointments start time in central time
+  apptStartTime = toZonedTime(apptStartTime, timeZone);
+  apptStartTime.setHours(apptStartTime.getHours() + apptHoursBuffer);
 
   const generateTimeSlots = () => {
     const morningSlots = [];
     const afternoonSlots = [];
     const eveningSlots = [];
 
-    for (let hour = startHour; hour <= endHour; hour++) {
+    for (let hour = startHour; hour < endHour; hour++) {
       for (let minute = 0; minute < 60; minute += interval) {
         const time = new Date(selectedDateTime);
         time.setHours(hour);
@@ -29,7 +29,7 @@ const TimeSelector = ({
 
         if (hour < 12) {
           morningSlots.push(time);
-        } else if (hour < 17) {
+        } else if (hour <= 17) {
           afternoonSlots.push(time);
         } else {
           eveningSlots.push(time);
@@ -60,7 +60,7 @@ const TimeSelector = ({
               minute: '2-digit',
             });
 
-            if (slot < apptsStartTime) {
+            if (slot < apptStartTime) {
               return (
                 <button
                   key={index}
