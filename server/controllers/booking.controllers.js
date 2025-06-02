@@ -1,4 +1,4 @@
-import Booking from '../models/banana.js';
+import Booking from '../models/booking.model.js';
 
 const getBookings = async (req, res) => {
   try {
