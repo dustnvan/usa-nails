@@ -5,8 +5,23 @@ import TimeSelector from '../components/SelectTime';
 
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { toZonedTime } from 'date-fns-tz';
 
-const currentDateTime = new Date();
+const timeZone = 'America/Chicago';
+
+let currentDateTime = new Date();
+currentDateTime = toZonedTime(currentDateTime, timeZone);
+
+const datePart = currentDateTime.toLocaleDateString('en-US', {
+  month: 'numeric',
+  day: 'numeric',
+  year: 'numeric',
+});
+
+const timePart = currentDateTime.toLocaleTimeString('en-US', {
+  hour: 'numeric',
+  minute: '2-digit',
+});
 
 const SelectDateTime = () => {
   const thirtyDaysFromNow = new Date();
@@ -44,6 +59,9 @@ const SelectDateTime = () => {
         }}
         className="text-center text-2xl font-bold mt-4"
       />
+      <p className="max-w-md mx-auto text-center">
+        Business Time: {datePart} - {timePart}
+      </p>
       <div className="mx-auto mt-10 flex justify-center flex-wrap gap-4">
         <div>
           <Calendar

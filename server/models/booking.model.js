@@ -3,8 +3,12 @@ import { Schema, model } from 'mongoose';
 const bookingSchema = new Schema({
   clientName: { type: String, required: true },
   clientPhone: { type: String, required: true },
-  service: { type: Schema.Types.ObjectId, ref: 'Service', required: true },
-  staff: { type: Schema.Types.ObjectId, ref: 'Staff', required: true },
+  selections: [
+    {
+      staff: { type: Schema.Types.ObjectId, ref: 'Staff', required: true },
+      services: { type: Schema.Types.ObjectId, ref: 'Service', required: true },
+    },
+  ],
   date: { type: Date, required: true },
 });
 

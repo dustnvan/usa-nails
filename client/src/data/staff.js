@@ -1,7 +1,7 @@
 const staff = [
   {
     name: 'Any available staff',
-    servicesProvided: [
+    services: [
       'Acrylic Full Set',
       'Acrylic Fill-in',
       'White tip',
@@ -29,7 +29,7 @@ const staff = [
   },
   {
     name: 'Monica',
-    servicesProvided: [
+    services: [
       'Acrylic Full Set',
       'Acrylic Fill-in',
       'White tip',
@@ -57,7 +57,7 @@ const staff = [
   },
   {
     name: 'An',
-    servicesProvided: [
+    services: [
       'Acrylic Full Set',
       'Acrylic Fill-in',
       'White tip',

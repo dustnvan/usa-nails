@@ -1,4 +1,5 @@
 import React from 'react';
+import { toZonedTime, fromZonedTime } from 'date-fns-tz';
 
 const TimeSelector = ({
   setSelectedDateTime,
@@ -9,8 +10,10 @@ const TimeSelector = ({
   const endHour = 19;
   const interval = 15;
   const apptBufferHours = 1; // 1 hour gap from current time for no appointments
+  const timeZone = 'America/Chicago'; // Adjust to your desired time zone
 
-  const apptsStartTime = new Date(); // appointments start time
+  let apptsStartTime = new Date(); // appointments start time in central time
+  apptsStartTime = toZonedTime(apptsStartTime, timeZone);
   apptsStartTime.setHours(apptsStartTime.getHours() + apptBufferHours);
 
   const generateTimeSlots = () => {

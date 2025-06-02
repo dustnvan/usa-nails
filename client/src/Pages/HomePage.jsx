@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import Staff from '../components/Staff';
 import SubHeader from '../components/SubHeader';
 import Searchbar from '../components/Searchbar';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const HomePage = () => {
@@ -20,6 +20,10 @@ const HomePage = () => {
   );
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setSearchQuery('');
+  }, [view]);
 
   // staff->service navigation logic
   useEffect(() => {

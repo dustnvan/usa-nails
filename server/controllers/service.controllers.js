@@ -11,7 +11,7 @@ const createService = async (req, res) => {
 
 const getServices = async (req, res) => {
   try {
-    const services = await Service.find({});
+    const services = await Service.find({}).populate('category');
     res.status(200).json(services);
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -4,11 +4,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 
-const Dropdown = ({
-  serviceCategoryName,
-  setSelectedService,
-  selectedStaff = null,
-}) => {
+const Dropdown = ({ category, setSelectedService, selectedStaff = null }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [services, setServices] = useState(null);
   const [error, setError] = useState(null);
@@ -34,16 +30,19 @@ const Dropdown = ({
   if (loading) return <div></div>;
   if (error) return <div>Error: {error}</div>;
 
-  // Filter service data based on selected staff
-  const filteredServiceData = selectedStaff
-    ? services.filter((service) =>
-        selectedStaff.servicesProvided.includes(service.name)
-      )
-    : services;
+  let filteredServiceData = services;
 
+  if (selectedStaff) {
+    const staffServiceIds = selectedStaff.services.map(
+      (service) => service._id
+    );
+    filteredServiceData = services.filter((service) =>
+      staffServiceIds.includes(service._id)
+    );
+  }
   // Check if there are any services in the category that are visible
   const hasVisibleServices = filteredServiceData.some(
-    (service) => service.categoryName === serviceCategoryName
+    (service) => service.category.name === category.name
   );
 
   if (!hasVisibleServices) return null;
@@ -51,7 +50,7 @@ const Dropdown = ({
   return (
     <div>
       <ServiceCategory
-        serviceCategoryName={serviceCategoryName}
+        category={category}
         setIsOpen={setIsOpen}
         isOpen={isOpen}
       />
@@ -67,10 +66,10 @@ const Dropdown = ({
             className="overflow-hidden"
           >
             {filteredServiceData
-              .filter((service) => service.categoryName === serviceCategoryName)
+              .filter((service) => service.category.name === category.name)
               .map((service) => (
                 <ServiceOption
-                  key={service.name}
+                  key={service._id}
                   service={service}
                   setSelectedService={setSelectedService}
                 />

@@ -40,11 +40,11 @@ const Services = ({
     : categories;
 
   return (
-    <section className="mt-4">
+    <section className="mt-6 flex flex-col gap-4">
       {filteredCategories.map((category) => (
         <Dropdown
-          key={category.name}
-          serviceCategoryName={category.name}
+          key={category._id}
+          category={category}
           setSelectedService={setSelectedService}
           selectedStaff={selectedStaff}
         />

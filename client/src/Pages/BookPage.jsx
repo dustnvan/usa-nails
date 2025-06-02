@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import Header from '../components/Header';
 import SubHeader from '../components/SubHeader';
+import { validatePhoneNum, validateName } from '../utils/validation';
 
 const BookPage = () => {
   const navigate = useNavigate();
@@ -32,25 +33,6 @@ const BookPage = () => {
     return;
   }
 
-  const validatePhoneNum = (value) => {
-    const digitsOnly = value.replace(/\D/g, '');
-    if (digitsOnly.length === 0) {
-      setPhoneError('Phone number is required.');
-    } else if (digitsOnly.length !== 10) {
-      setPhoneError('Phone number must be 10 digits.');
-    } else {
-      setPhoneError('');
-    }
-  };
-
-  const validateName = (name) => {
-    if (name.trim() === '') {
-      setNameError('Name is required.');
-    } else {
-      setNameError('');
-    }
-  };
-
   const validateForm = () => {
     return !nameError && !phoneError && name && phoneNum && agreed;
   };
@@ -71,6 +53,12 @@ const BookPage = () => {
       minute: '2-digit',
       hour12: true,
     });
+
+    const newBooking = {
+      clientName: name,
+      clientPhone: phoneNum,
+      service: selections,
+    };
 
     alert(
       `Thank you ${name}! Your appointment has been booked on ${formattedDate}.`
@@ -102,7 +90,7 @@ const BookPage = () => {
             name="name"
             onChange={(e) => {
               setName(e.target.value);
-              validateName(e.target.value);
+              setNameError(() => validateName(e.target.value));
             }}
           />
           {nameError && (
@@ -122,7 +110,7 @@ const BookPage = () => {
             name="phone"
             onChange={(e) => {
               setPhoneNum(e.target.value);
-              validatePhoneNum(e.target.value);
+              setPhoneError(() => validatePhoneNum(e.target.value));
             }}
           />
           {phoneError && (
