@@ -17,6 +17,8 @@ const Dropdown = ({
   useEffect(() => {
     const fetchServices = async () => {
       try {
+        console.log('API URL:', process.env.REACT_APP_RENDER_API);
+
         const response = await axios.get(
           `${process.env.REACT_APP_RENDER_API}/api/services`
         );
