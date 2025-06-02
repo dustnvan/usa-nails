@@ -1,16 +1,40 @@
 import Dropdown from './Dropdown';
-import categoryData from '../data/categories';
+import { useState } from 'react';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 const Services = ({
   searchQuery,
   setSelectedService,
   selectedStaff = null,
 }) => {
+  const [categories, setCategories] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/api/categories');
+        setCategories(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) return;
+  if (error) return <div>Error: {error}</div>;
+
   const filteredCategories = searchQuery
-    ? categoryData.filter((category) =>
+    ? categories.filter((category) =>
         category.name.toLowerCase().includes(searchQuery.toLowerCase())
       )
-    : categoryData;
+    : categories;
 
   return (
     <section className="mt-4">

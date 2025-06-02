@@ -1,8 +1,8 @@
 import ServiceCategory from './ServiceCategory';
 import ServiceOption from './ServiceOption';
-import serviceData from '../data/services';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import axios from 'axios';
 
 const Dropdown = ({
   serviceCategoryName,
@@ -10,13 +10,34 @@ const Dropdown = ({
   selectedStaff = null,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [services, setServices] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await axios.get('/api/services');
+        setServices(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+
+    fetchServices();
+  }, []);
+
+  if (loading) return <div></div>;
+  if (error) return <div>Error: {error}</div>;
 
   // Filter service data based on selected staff
   const filteredServiceData = selectedStaff
-    ? serviceData.filter((service) =>
+    ? services.filter((service) =>
         selectedStaff.servicesProvided.includes(service.name)
       )
-    : serviceData;
+    : services;
 
   // Check if there are any services in the category that are visible
   const hasVisibleServices = filteredServiceData.some(

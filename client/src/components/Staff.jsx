@@ -1,13 +1,37 @@
 import StaffBtn from './StaffBtn';
 import staffData from '../data/staff';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Staff = ({ searchQuery, setSelectedStaff, selectedService = null }) => {
+  const [staff, setStaff] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchStaff = async () => {
+      try {
+        const response = await axios.get('/api/staff');
+        setStaff(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+
+    fetchStaff();
+  });
+
+  if (loading) return;
+  if (error) return <div>Error: {error}</div>;
+
   // Filter staff data based on selected service
   let filteredStaff = selectedService
-    ? staffData.filter((staff) =>
+    ? staff.filter((staff) =>
         staff.servicesProvided.includes(selectedService.name)
       )
-    : staffData;
+    : staff;
 
   // Further filter staff based on search query
   filteredStaff = searchQuery

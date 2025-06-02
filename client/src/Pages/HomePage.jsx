@@ -21,8 +21,6 @@ const HomePage = () => {
 
   const navigate = useNavigate();
 
-  console.log(selectedStaff, selectedService, view, selections);
-
   // staff->service navigation logic
   useEffect(() => {
     if (selectedStaff && view === 'staff') {

@@ -1,9 +1,10 @@
 import { Router } from 'express';
-import routeControllers from '../controllers/service.controllers.js';
+import serviceControllers from '../controllers/service.controllers.js';
 
-const { createService } = routeControllers;
+const { createService, getServices } = serviceControllers;
 const router = Router();
 
+router.get('/', getServices);
 router.post('/', createService);
 
 export default router;
