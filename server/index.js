@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import categoryRoutes from './routes/category.routes.js';
 import serviceRoutes from './routes/service.routes.js';
 import staffRoutes from './routes/staff.routes.js';
+import bookingRoutes from './routes/booking.routes.js';
 import cors from 'cors';
 
 dotenv.config();
@@ -19,7 +20,7 @@ app.use(cors());
 app.use('/api/categories', categoryRoutes);
 app.use('/api/services', serviceRoutes);
 app.use('/api/staff', staffRoutes);
-
+app.use('/api/bookings', bookingRoutes);
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {

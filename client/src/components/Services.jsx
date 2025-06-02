@@ -2,6 +2,7 @@ import Dropdown from './Dropdown';
 import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
+import Loading from './Loading';
 
 const Services = ({
   searchQuery,
@@ -29,7 +30,7 @@ const Services = ({
     fetchData();
   }, []);
 
-  if (loading) return;
+  if (loading) return <Loading />;
   if (error) return <div>Error: {error}</div>;
 
   const filteredCategories = searchQuery

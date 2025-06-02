@@ -6,9 +6,9 @@ import TimeSelector from '../components/SelectTime';
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const SelectDateTime = () => {
-  const currentDateTime = new Date();
+const currentDateTime = new Date();
 
+const SelectDateTime = () => {
   const thirtyDaysFromNow = new Date();
   thirtyDaysFromNow.setDate(currentDateTime.getDate() + 30);
 

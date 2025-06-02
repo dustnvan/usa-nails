@@ -63,10 +63,10 @@ const BookPage = () => {
     }
 
     const formattedDate = selectedDateTime.toLocaleString('en-US', {
-      weekday: 'long', // e.g., "Monday"
+      weekday: 'long',
       year: 'numeric',
-      month: 'long', // e.g., "June"
-      day: 'numeric', // e.g., 1
+      month: 'long',
+      day: 'numeric',
       hour: 'numeric',
       minute: '2-digit',
       hour12: true,
@@ -75,6 +75,8 @@ const BookPage = () => {
     alert(
       `Thank you ${name}! Your appointment has been booked on ${formattedDate}.`
     );
+
+    navigate('/');
   };
 
   return (
@@ -157,7 +159,7 @@ const BookPage = () => {
 
         <input
           type="submit"
-          className={`rounded-lg p-2 w-full mt-8 max-w-xs font-bold text-xl  ${
+          className={`rounded-lg p-2 w-full mt-8 max-w-xs font-bold text-xl ${
             validateForm()
               ? 'bg-red text-white cursor-pointer'
               : 'bg-light-gray text-mid-gray opacity-50'

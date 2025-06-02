@@ -1,5 +1,5 @@
 import StaffBtn from './StaffBtn';
-import staffData from '../data/staff';
+import Loading from './Loading';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -25,7 +25,7 @@ const Staff = ({ searchQuery, setSelectedStaff, selectedService = null }) => {
     fetchStaff();
   });
 
-  if (loading) return;
+  if (loading) return <Loading />;
   if (error) return <div>Error: {error}</div>;
 
   // Filter staff data based on selected service
