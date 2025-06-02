@@ -11,7 +11,9 @@ const Staff = ({ searchQuery, setSelectedStaff, selectedService = null }) => {
   useEffect(() => {
     const fetchStaff = async () => {
       try {
-        const response = await axios.get('/api/staff');
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/staff`
+        );
         setStaff(response.data);
         setLoading(false);
       } catch (error) {

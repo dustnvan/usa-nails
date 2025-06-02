@@ -17,7 +17,9 @@ const Dropdown = ({
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get('/api/services');
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/services`
+        );
         setServices(response.data);
         setLoading(false);
       } catch (error) {

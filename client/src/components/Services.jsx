@@ -15,7 +15,9 @@ const Services = ({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('/api/categories');
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/categories`
+        );
         setCategories(response.data);
         setLoading(false);
       } catch (error) {
