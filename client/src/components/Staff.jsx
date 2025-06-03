@@ -10,6 +10,7 @@ const Staff = ({ searchQuery, setSelectedStaff, selectedService = null }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log('component rendered');
     const fetchStaff = async () => {
       try {
         const response = await axios.get(
@@ -18,7 +19,7 @@ const Staff = ({ searchQuery, setSelectedStaff, selectedService = null }) => {
         setStaff(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
-        toast.error('Couldn’t load live data. Showing fallback content.');
+        toast.error('Couldn’t load live staff data. Showing fallback content.');
         setStaff(staffDummyData);
       } finally {
         setLoading(false);

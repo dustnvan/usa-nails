@@ -145,29 +145,31 @@ const BookPage = () => {
           )}
         </div>
         <div className="w-full max-w-sm mt-8">
-          <div className="flex items-center gap-2 cursor-pointer ">
-            <input
-              type="checkbox"
-              checked={agreed}
-              onChange={(e) => setAgreed(e.target.checked)}
-              className="hidden"
-            />
-            <div
-              className={`w-6 h-6 flex items-center justify-center border-2 rounded-full transition ${
-                agreed ? 'bg-red border-red' : 'border-gray-300'
-              }`}
-            >
-              {agreed && (
-                <FontAwesomeIcon
-                  icon={faCheck}
-                  className="text-white text-sm"
-                />
-              )}
-            </div>
+          <div className="flex items-center gap-2">
+            <label className="cursor-pointer">
+              <input
+                type="checkbox"
+                checked={agreed}
+                onChange={(e) => setAgreed(e.target.checked)}
+                className="hidden"
+              />
+              <div
+                className={`w-6 h-6 flex items-center justify-center border-2 rounded-full transition ${
+                  agreed ? 'bg-red border-red' : 'border-gray-300'
+                }`}
+              >
+                {agreed && (
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-white text-sm"
+                  />
+                )}
+              </div>
+            </label>
             <span className="text-sm">
               I have read and agree to the{' '}
               <span
-                className="text-red z-20"
+                className="text-red z-20 cursor-pointer"
                 onClick={() => setPolicyModal((prev) => !prev)}
               >
                 cancellation policy

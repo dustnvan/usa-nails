@@ -28,7 +28,9 @@ const Services = ({
         setServices(serviceRes.data);
       } catch (error) {
         console.error('Error fetching data:', error);
-        toast.error('Couldn’t load live data. Showing fallback content.');
+        toast.error(
+          'Couldn’t load live service data. Showing fallback content.'
+        );
         setCategories(categoriesDummyData);
         setServices(serviceDummyData);
       } finally {

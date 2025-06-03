@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { toZonedTime } from 'date-fns-tz';
 import axios from 'axios';
 import Loading from './Loading';
+import { ToastContainer, toast } from 'react-toastify';
 
 const TimeSelector = ({
   setSelectedDateTime,
@@ -9,7 +10,6 @@ const TimeSelector = ({
   setFinishedSelections,
 }) => {
   const [bookings, setBookings] = useState([]);
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const startHour = 9;
@@ -30,9 +30,10 @@ const TimeSelector = ({
         );
 
         setBookings(response.data);
-        setLoading(false);
       } catch (error) {
-        setError(error.message);
+        console.error(error.message);
+        toast.error('Unable to retrieve bookings');
+      } finally {
         setLoading(false);
       }
     };
@@ -71,10 +72,14 @@ const TimeSelector = ({
   const selectedTime = selectedDateTime.getTime();
 
   if (loading) return <Loading />;
-  if (error) return <div>{error}</div>;
 
   return (
     <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 ">
+      <ToastContainer
+        position="bottom-center"
+        autoClose={3000}
+        closeOnClick={true}
+      />
       {Object.entries(slots).map(([period, timeSlots]) => (
         <React.Fragment key={[period]}>
           {' '}

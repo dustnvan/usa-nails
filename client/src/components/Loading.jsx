@@ -15,18 +15,19 @@ const Loading = () => {
 
   return (
     <>
-      <div className="flex items-center justify-center mt-20">
-        <FontAwesomeIcon
-          icon={faSpinner}
-          spin
-          className="text-4xl text-dark-gray"
-        />
-      </div>
-
-      <div className="text-center dark-gray mt-2 max-w-sm text-sm w-full mx-auto">
-        {showWakingMsg
-          ? 'Waking up server — this may take up to a minute.'
-          : 'Loading...'}
+      <div className="flex flex-col">
+        <div className="flex items-center justify-center mt-20">
+          <FontAwesomeIcon
+            icon={faSpinner}
+            spin
+            className="text-4xl text-dark-gray"
+          />
+        </div>
+        <div className="text-center dark-gray mt-2 max-w-sm text-sm w-full mx-auto">
+          {showWakingMsg
+            ? 'Waking up server — this may take up to a minute.'
+            : 'Loading...'}
+        </div>
       </div>
     </>
   );
