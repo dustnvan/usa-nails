@@ -6,7 +6,7 @@ const bookingSchema = new Schema({
   selections: [
     {
       staff: { type: Schema.Types.ObjectId, ref: 'Staff', required: true },
-      services: { type: Schema.Types.ObjectId, ref: 'Service', required: true },
+      service: { type: Schema.Types.ObjectId, ref: 'Service', required: true },
     },
   ],
   date: { type: Date, required: true },

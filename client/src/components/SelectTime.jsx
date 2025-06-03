@@ -1,11 +1,17 @@
-import React from 'react';
-import { toZonedTime, fromZonedTime } from 'date-fns-tz';
+import React, { useEffect, useState } from 'react';
+import { toZonedTime } from 'date-fns-tz';
+import axios from 'axios';
+import Loading from './Loading';
 
 const TimeSelector = ({
   setSelectedDateTime,
   selectedDateTime,
   setFinishedSelections,
 }) => {
+  const [bookings, setBookings] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   const startHour = 9;
   const endHour = 19;
   const interval = 15;
@@ -15,6 +21,24 @@ const TimeSelector = ({
   let apptStartTime = new Date(); // appointments start time in central time
   apptStartTime = toZonedTime(apptStartTime, timeZone);
   apptStartTime.setHours(apptStartTime.getHours() + apptHoursBuffer);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_RENDER_API}/api/bookings`
+        );
+
+        setBookings(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const generateTimeSlots = () => {
     const morningSlots = [];
@@ -46,6 +70,9 @@ const TimeSelector = ({
   const slots = generateTimeSlots();
   const selectedTime = selectedDateTime.getTime();
 
+  if (loading) return <Loading />;
+  if (error) return <div>{error}</div>;
+
   return (
     <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 ">
       {Object.entries(slots).map(([period, timeSlots]) => (
@@ -60,7 +87,14 @@ const TimeSelector = ({
               minute: '2-digit',
             });
 
-            if (slot < apptStartTime) {
+            const bookedSlots = bookings.map((booking) =>
+              toZonedTime(booking.date, timeZone).getTime()
+            );
+            const isBooked = bookedSlots.includes(slot.getTime());
+
+            console.log(bookedSlots);
+
+            if (slot < apptStartTime || isBooked) {
               return (
                 <button
                   key={index}

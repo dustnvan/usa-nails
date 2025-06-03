@@ -8,6 +8,8 @@ import SubHeader from '../components/SubHeader';
 import { validatePhoneNum, validateName } from '../utils/validation';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
+import axios from 'axios';
+import { fromZonedTime } from 'date-fns-tz';
 
 const BookPage = () => {
   const submitButtonRef = useRef(null);
@@ -23,6 +25,7 @@ const BookPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { selections = [], selectedDateTime } = location.state || {};
+  const timeZone = 'America/Chicago';
 
   useEffect(() => {
     if (selections.length === 0) {
@@ -51,7 +54,7 @@ const BookPage = () => {
     return !nameError && !phoneError && name && phoneNum && agreed;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateForm()) {
@@ -61,8 +64,22 @@ const BookPage = () => {
     const newBooking = {
       clientName: name,
       clientPhone: phoneNum,
-      service: selections,
+      selections: selections.map((selection) => ({
+        staff: selection.staff._id,
+        service: selection.service._id,
+      })),
+      date: fromZonedTime(selectedDateTime, timeZone),
     };
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_RENDER_API}/api/bookings`,
+        newBooking
+      );
+    } catch (error) {
+      console.error(error);
+      return;
+    }
 
     setTimeout(() => {
       setFormSubmitted(true);
@@ -162,7 +179,6 @@ const BookPage = () => {
 
       {formSubmitted && (
         <Confetti
-          className="width-screen h-screen"
           numberOfPieces={100}
           width={width}
           height={height}

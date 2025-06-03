@@ -21,6 +21,7 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/services', serviceRoutes);
 app.use('/api/staff', staffRoutes);
 app.use('/api/bookings', bookingRoutes);
+
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
