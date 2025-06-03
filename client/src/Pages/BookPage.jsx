@@ -107,6 +107,12 @@ const BookPage = () => {
               nameError ? 'outline-2 outline-red' : ''
             }`}
             name="name"
+            onKeyDown={(e) => {
+              const allowed = /^[a-zA-Z\s-']$/;
+              if (e.key.length === 1 && !allowed.test(e.key)) {
+                e.preventDefault();
+              }
+            }}
             onChange={(e) => {
               setName(e.target.value);
               setNameError(() => validateName(e.target.value));
