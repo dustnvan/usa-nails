@@ -92,8 +92,6 @@ const TimeSelector = ({
             );
             const isBooked = bookedSlots.includes(slot.getTime());
 
-            console.log(bookedSlots);
-
             if (slot < apptStartTime || isBooked) {
               return (
                 <button
