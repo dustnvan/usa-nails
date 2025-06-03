@@ -7,6 +7,7 @@ import Header from '../components/Header';
 import SubHeader from '../components/SubHeader';
 import { validatePhoneNum, validateName } from '../utils/validation';
 import Confetti from 'react-confetti';
+import { useWindowSize } from 'react-use';
 
 const BookPage = () => {
   const submitButtonRef = useRef(null);
@@ -24,6 +25,7 @@ const BookPage = () => {
   // If no selections, redirect to home
   const [loading, setLoading] = useState(true);
 
+  const { width, height } = useWindowSize();
   const formattedDate = selectedDateTime.toLocaleString('en-US', {
     weekday: 'long',
     year: 'numeric',
@@ -163,25 +165,21 @@ const BookPage = () => {
         <Confetti
           className="width-screen h-screen"
           numberOfPieces={100}
-          width={window.innerWidth}
-          height={window.innerHeight}
+          width={width}
+          height={height}
           initialVelocityY={20}
           initialVelocityX={20}
           confettiSource={{
             x:
               submitButtonRef.current.getBoundingClientRect().left +
-              submitButtonRef.current.offsetWidth / 2 +
-              window.window.pageXOffset,
-
+              submitButtonRef.current.offsetWidth / 2,
             y:
               submitButtonRef.current.getBoundingClientRect().top +
-              submitButtonRef.current.offsetHeight / 2 +
-              window.pageYOffset,
+              submitButtonRef.current.offsetHeight / 2,
           }}
           recycle={false}
           tweenDuration={300}
           onConfettiComplete={() => {
-            setFormSubmitted(false);
             alert(
               `Thank you ${name}! Your appointment has been booked on ${formattedDate}.`
             );
