@@ -2,7 +2,7 @@ import StaffBtn from './StaffBtn';
 import Loading from './Loading';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import staffDummyData from '../data/staffDummyData';
+import staffDummyData from '../dummyData/staffDummyData';
 import { toast, ToastContainer } from 'react-toastify';
 
 const Staff = ({ searchQuery, setSelectedStaff, selectedService = null }) => {

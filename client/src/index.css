@@ -19,7 +19,7 @@ Border / subtle bg	#E5E7EB (Gray-200)	Input borders, section dividers */
 @custom-variant hover (&:hover);
 
 body {
-  @apply bg-white font-display px-2 pb-30;
+  @apply bg-white font-display px-2 py-15;
 }
 
 .react-calendar {

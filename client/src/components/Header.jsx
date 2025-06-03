@@ -1,6 +1,6 @@
 const Header = () => {
   return (
-    <header className="flex flex-col items-center pt-10">
+    <header className="flex flex-col items-center">
       <h1 className="text-3xl font-bold">
         <span className="text-blue">USA</span>
         <span className="text-red ml-2">Nails</span>

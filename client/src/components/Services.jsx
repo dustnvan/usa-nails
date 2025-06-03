@@ -2,8 +2,8 @@ import Dropdown from './Dropdown';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Loading from './Loading';
-import categoriesDummyData from '../data/categoriesDummyData';
-import serviceDummyData from '../data/servicesDummyData';
+import categoriesDummyData from '../dummyData/categoriesDummyData';
+import serviceDummyData from '../dummyData/servicesDummyData';
 import { toast, ToastContainer } from 'react-toastify';
 const Services = ({
   searchQuery,
