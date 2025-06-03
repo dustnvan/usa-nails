@@ -63,6 +63,7 @@ const BookPage = () => {
       service: selections,
     };
 
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     setFormSubmitted(true);
   };
 
@@ -156,6 +157,7 @@ const BookPage = () => {
           />
         </div>
       </form>
+
       {formSubmitted && (
         <Confetti
           numberOfPieces={100}
@@ -186,7 +188,6 @@ const BookPage = () => {
           gravity={0.3}
         />
       )}
-      {/* <div className="h-screen"></div> */}
     </>
   );
 };
