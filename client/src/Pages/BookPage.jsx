@@ -65,7 +65,7 @@ const BookPage = () => {
 
     setTimeout(() => {
       setFormSubmitted(true);
-    }, 200);
+    }, 300);
   };
 
   return (
