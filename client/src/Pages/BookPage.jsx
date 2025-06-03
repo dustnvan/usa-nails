@@ -24,6 +24,16 @@ const BookPage = () => {
   // If no selections, redirect to home
   const [loading, setLoading] = useState(true);
 
+  const formattedDate = selectedDateTime.toLocaleString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  });
+
   useEffect(() => {
     if (selections.length === 0) {
       navigate('/');
@@ -47,16 +57,6 @@ const BookPage = () => {
       alert('Please fill out the form correctly.');
     }
 
-    const formattedDate = selectedDateTime.toLocaleString('en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true,
-    });
-
     const newBooking = {
       clientName: name,
       clientPhone: phoneNum,
@@ -64,12 +64,6 @@ const BookPage = () => {
     };
 
     setFormSubmitted(true);
-
-    // alert(
-    //   `Thank you ${name}! Your appointment has been booked on ${formattedDate}.`
-    // );
-
-    // navigate('/');
   };
 
   return (
@@ -148,7 +142,7 @@ const BookPage = () => {
             </span>
           </label>
         </div>
-        <div className="relative">
+        <div>
           <input
             type="submit"
             className={`rounded-lg p-2 w-full mt-8 max-w-xs font-bold text-xl ${
@@ -163,31 +157,34 @@ const BookPage = () => {
         </div>
       </form>
       {formSubmitted && (
-        <div>
-          <Confetti
-            numberOfPieces={100}
-            width={window.innerWidth}
-            height={window.innerHeight}
-            initialVelocityY={20}
-            initialVelocityX={20}
-            confettiSource={{
-              x:
-                submitButtonRef.current.getBoundingClientRect().left +
-                submitButtonRef.current.offsetWidth / 2,
-              y:
-                submitButtonRef.current.getBoundingClientRect().top +
-                submitButtonRef.current.offsetHeight / 2,
-            }}
-            recycle={false}
-            tweenDuration={300}
-            onConfettiComplete={() => {
-              navigate('/');
-            }}
-            gravity={0.3}
-          />
-        </div>
+        <Confetti
+          numberOfPieces={100}
+          width={window.innerWidth}
+          height={window.innerHeight}
+          initialVelocityY={20}
+          initialVelocityX={20}
+          confettiSource={{
+            x:
+              submitButtonRef.current.getBoundingClientRect().left +
+              submitButtonRef.current.offsetWidth / 2 +
+              window.scrollX,
+
+            y:
+              submitButtonRef.current.getBoundingClientRect().top +
+              submitButtonRef.current.offsetHeight / 2 +
+              window.scrollY,
+          }}
+          recycle={false}
+          tweenDuration={300}
+          onConfettiComplete={() => {
+            alert(
+              `Thank you ${name}! Your appointment has been booked on ${formattedDate}.`
+            );
+            navigate('/');
+          }}
+          gravity={0.3}
+        />
       )}
-      ;
     </>
   );
 };
