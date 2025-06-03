@@ -63,8 +63,6 @@ const BookPage = () => {
       service: selections,
     };
 
-    document.activeElement.blur();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
     setTimeout(() => {
       setFormSubmitted(true);
     }, 200);
