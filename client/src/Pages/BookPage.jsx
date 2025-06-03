@@ -161,6 +161,7 @@ const BookPage = () => {
 
       {formSubmitted && (
         <Confetti
+          className="width-screen h-screen"
           numberOfPieces={100}
           width={window.innerWidth}
           height={window.innerHeight}
@@ -181,10 +182,10 @@ const BookPage = () => {
           tweenDuration={300}
           onConfettiComplete={() => {
             setFormSubmitted(false);
-            // alert(
-            //   `Thank you ${name}! Your appointment has been booked on ${formattedDate}.`
-            // );
-            // navigate('/');
+            alert(
+              `Thank you ${name}! Your appointment has been booked on ${formattedDate}.`
+            );
+            navigate('/');
           }}
           gravity={0.3}
         />
