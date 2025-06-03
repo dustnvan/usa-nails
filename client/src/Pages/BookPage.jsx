@@ -11,10 +11,6 @@ import { useWindowSize } from 'react-use';
 
 const BookPage = () => {
   const submitButtonRef = useRef(null);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { selections = [], selectedDateTime } = location.state || {};
-
   const [phoneNum, setPhoneNum] = useState('');
   const [name, setName] = useState('');
   const [agreed, setAgreed] = useState(true);
@@ -24,6 +20,17 @@ const BookPage = () => {
 
   // If no selections, redirect to home
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { selections = [], selectedDateTime } = location.state || {};
+
+  useEffect(() => {
+    if (selections.length === 0) {
+      navigate('/');
+    } else {
+      setLoading(false);
+    }
+  }, [selections, navigate]);
 
   const { width, height } = useWindowSize();
   const formattedDate = selectedDateTime.toLocaleString('en-US', {
@@ -35,14 +42,6 @@ const BookPage = () => {
     minute: '2-digit',
     hour12: true,
   });
-
-  useEffect(() => {
-    if (selections.length === 0) {
-      navigate('/');
-    } else {
-      setLoading(false);
-    }
-  }, [selections, navigate]);
 
   if (loading) {
     return;
