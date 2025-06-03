@@ -10,6 +10,8 @@ import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
 import axios from 'axios';
 import { fromZonedTime } from 'date-fns-tz';
+import StaffModal from '../components/StaffModal';
+import PolicyModal from '../components/PolicyModal';
 
 const BookPage = () => {
   const submitButtonRef = useRef(null);
@@ -19,6 +21,7 @@ const BookPage = () => {
   const [phoneError, setPhoneError] = useState('');
   const [nameError, setNameError] = useState('');
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [policyModal, setPolicyModal] = useState(false);
 
   // If no selections, redirect to home
   const [loading, setLoading] = useState(true);
@@ -142,7 +145,7 @@ const BookPage = () => {
           )}
         </div>
         <div className="w-full max-w-sm mt-8">
-          <label className="flex items-center gap-2 cursor-pointer ">
+          <div className="flex items-center gap-2 cursor-pointer ">
             <input
               type="checkbox"
               checked={agreed}
@@ -163,10 +166,15 @@ const BookPage = () => {
             </div>
             <span className="text-sm">
               I have read and agree to the{' '}
-              <span className="text-red">cancellation policy</span> of USA
-              Nails.
+              <span
+                className="text-red z-20"
+                onClick={() => setPolicyModal((prev) => !prev)}
+              >
+                cancellation policy
+              </span>{' '}
+              of USA Nails.
             </span>
-          </label>
+          </div>
         </div>
         <div>
           <input
@@ -209,6 +217,8 @@ const BookPage = () => {
           gravity={0.3}
         />
       )}
+
+      <PolicyModal setPolicyModal={setPolicyModal} policyModal={policyModal} />
     </>
   );
 };

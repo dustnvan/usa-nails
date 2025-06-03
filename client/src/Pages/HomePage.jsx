@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import Staff from '../components/Staff';
 import SubHeader from '../components/SubHeader';
 import Searchbar from '../components/Searchbar';
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const HomePage = () => {

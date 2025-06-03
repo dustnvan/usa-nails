@@ -2,33 +2,14 @@ import ServiceCategory from './ServiceCategory';
 import ServiceOption from './ServiceOption';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import axios from 'axios';
 
-const Dropdown = ({ category, setSelectedService, selectedStaff = null }) => {
+const Dropdown = ({
+  category,
+  setSelectedService,
+  selectedStaff = null,
+  services,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [services, setServices] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_RENDER_API}/api/services`
-        );
-        setServices(response.data);
-        setLoading(false);
-      } catch (error) {
-        setError(error.message);
-        setLoading(false);
-      }
-    };
-
-    fetchServices();
-  }, []);
-
-  if (loading) return <div></div>;
-  if (error) return <div className="text-center">Error: {error}</div>;
 
   let filteredServiceData = services;
 

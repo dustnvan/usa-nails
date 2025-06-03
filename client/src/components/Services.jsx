@@ -1,37 +1,44 @@
 import Dropdown from './Dropdown';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useEffect } from 'react';
 import Loading from './Loading';
-
+import categoriesDummyData from '../data/categoriesDummyData';
+import serviceDummyData from '../data/servicesDummyData';
+import { toast, ToastContainer } from 'react-toastify';
 const Services = ({
   searchQuery,
   setSelectedService,
   selectedStaff = null,
 }) => {
   const [categories, setCategories] = useState(null);
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [services, setServices] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchAll = async () => {
       try {
-        const response = await axios.get(
+        const categoryRes = await axios.get(
           `${import.meta.env.VITE_RENDER_API}/api/categories`
         );
-        setCategories(response.data);
-        setLoading(false);
+        const serviceRes = await axios.get(
+          `${import.meta.env.VITE_RENDER_API}/api/services`
+        );
+
+        setCategories(categoryRes.data);
+        setServices(serviceRes.data);
       } catch (error) {
-        setError(error.message);
+        console.error('Error fetching data:', error);
+        toast.error('Couldn’t load live data. Showing fallback content.');
+        setCategories(categoriesDummyData);
+        setServices(serviceDummyData);
+      } finally {
         setLoading(false);
       }
     };
-
-    fetchData();
+    fetchAll();
   }, []);
 
   if (loading) return <Loading />;
-  if (error) return <div className="text-center">Error: {error}</div>;
 
   const filteredCategories = searchQuery
     ? categories.filter((category) =>
@@ -41,12 +48,19 @@ const Services = ({
 
   return (
     <section className="mt-6 flex flex-col gap-4">
+      <ToastContainer
+        position="bottom-center"
+        autoClose={3000}
+        closeOnClick={true}
+      />
+
       {filteredCategories.map((category) => (
         <Dropdown
           key={category._id}
           category={category}
           setSelectedService={setSelectedService}
           selectedStaff={selectedStaff}
+          services={services}
         />
       ))}
     </section>

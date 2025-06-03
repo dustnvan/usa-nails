@@ -2,11 +2,12 @@ import StaffBtn from './StaffBtn';
 import Loading from './Loading';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import staffDummyData from '../data/staffDummyData';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Staff = ({ searchQuery, setSelectedStaff, selectedService = null }) => {
   const [staff, setStaff] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchStaff = async () => {
@@ -14,11 +15,12 @@ const Staff = ({ searchQuery, setSelectedStaff, selectedService = null }) => {
         const response = await axios.get(
           `${import.meta.env.VITE_RENDER_API}/api/staff`
         );
-
         setStaff(response.data);
-        setLoading(false);
       } catch (error) {
-        setError(error.message);
+        console.error('Error fetching data:', error);
+        toast.error('Couldn’t load live data. Showing fallback content.');
+        setStaff(staffDummyData);
+      } finally {
         setLoading(false);
       }
     };
@@ -27,9 +29,6 @@ const Staff = ({ searchQuery, setSelectedStaff, selectedService = null }) => {
   }, []);
 
   if (loading) return <Loading />;
-  if (error) return <div>Error: {error}</div>;
-
-  //  staff = {name: String, services: [{, _id: String, name: String}]}
 
   // Filter staff data based on selected service
 
@@ -51,6 +50,11 @@ const Staff = ({ searchQuery, setSelectedStaff, selectedService = null }) => {
 
   return (
     <div>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={3000}
+        closeOnClick={true}
+      />
       <div className="grid grid-cols-1 sm:grid-cols-2 justify-items-center gap-y-6 mt-10 max-w-5xl mx-auto">
         {filteredStaff.map((staff) => (
           <StaffBtn
