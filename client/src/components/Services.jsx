@@ -31,7 +31,7 @@ const Services = ({
   }, []);
 
   if (loading) return <Loading />;
-  if (error) return <div>Error: {error}</div>;
+  if (error) return <div className="text-center">Error: {error}</div>;
 
   const filteredCategories = searchQuery
     ? categories.filter((category) =>

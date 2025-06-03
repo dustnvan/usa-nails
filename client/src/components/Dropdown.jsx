@@ -28,7 +28,7 @@ const Dropdown = ({ category, setSelectedService, selectedStaff = null }) => {
   }, []);
 
   if (loading) return <div></div>;
-  if (error) return <div>Error: {error}</div>;
+  if (error) return <div className="text-center">Error: {error}</div>;
 
   let filteredServiceData = services;
 
