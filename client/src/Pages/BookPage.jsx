@@ -167,24 +167,26 @@ const BookPage = () => {
             x:
               submitButtonRef.current.getBoundingClientRect().left +
               submitButtonRef.current.offsetWidth / 2 +
-              window.scrollX,
+              window.window.pageXOffset,
 
             y:
               submitButtonRef.current.getBoundingClientRect().top +
               submitButtonRef.current.offsetHeight / 2 +
-              window.scrollY,
+              window.pageYOffset,
           }}
           recycle={false}
           tweenDuration={300}
           onConfettiComplete={() => {
-            alert(
-              `Thank you ${name}! Your appointment has been booked on ${formattedDate}.`
-            );
-            navigate('/');
+            setFormSubmitted(false);
+            // alert(
+            //   `Thank you ${name}! Your appointment has been booked on ${formattedDate}.`
+            // );
+            // navigate('/');
           }}
           gravity={0.3}
         />
       )}
+      <div className="h-screen"></div>
     </>
   );
 };
