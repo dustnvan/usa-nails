@@ -1,6 +1,6 @@
 import ServiceCategory from './ServiceCategory';
 import ServiceOption from './ServiceOption';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Dropdown = ({

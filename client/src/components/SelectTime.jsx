@@ -28,7 +28,6 @@ const TimeSelector = ({
         const response = await axios.get(
           `${import.meta.env.VITE_RENDER_API}/api/bookings`
         );
-
         setBookings(response.data);
       } catch (error) {
         console.error(error.message);
@@ -37,7 +36,6 @@ const TimeSelector = ({
         setLoading(false);
       }
     };
-
     fetchData();
   }, []);
 

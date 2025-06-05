@@ -10,23 +10,23 @@ const Staff = ({ searchQuery, setSelectedStaff, selectedService = null }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log('component rendered');
-    const fetchStaff = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_RENDER_API}/api/staff`
-        );
-        setStaff(response.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        toast.error('Couldn’t load live staff data. Showing fallback content.');
-        setStaff(staffDummyData);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchStaff();
+    // const fetchStaff = async () => {
+    //   try {
+    //     const response = await axios.get(
+    //       `${import.meta.env.VITE_RENDER_API}/api/staff`
+    //     );
+    //     setStaff(response.data);
+    //   } catch (error) {
+    //     console.error('Error fetching data:', error);
+    //     toast.error('Couldn’t load live staff data. Showing fallback content.');
+    //     setStaff(staffDummyData);
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // };
+    // fetchStaff();
+    setStaff(staffDummyData);
+    setLoading(false);
   }, []);
 
   if (loading) return <Loading />;
