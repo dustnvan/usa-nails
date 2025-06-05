@@ -16,32 +16,34 @@ const Services = ({
   const [services, setServices] = useState(null);
 
   useEffect(() => {
-    // const fetchAll = async () => {
-    //   try {
-    //     const categoryRes = await axios.get(
-    //       `${import.meta.env.VITE_RENDER_API}/api/categories`
-    //     );
-    //     const serviceRes = await axios.get(
-    //       `${import.meta.env.VITE_RENDER_API}/api/services`
-    //     );
-
-    //     setCategories(categoryRes.data);
-    //     setServices(serviceRes.data);
-    //   } catch (error) {
-    //     console.error('Error fetching data:', error);
-    //     toast.error(
-    //       'Couldn’t load live service data. Showing fallback content.'
-    //     );
-    //     setCategories(categoriesDummyData);
-    //     setServices(serviceDummyData);
-    //   } finally {
-    //     setLoading(false);
-    //   }
-    // };
-    // fetchAll();
+    // Set for demos
     setCategories(categoriesDummyData);
     setServices(serviceDummyData);
     setLoading(false);
+
+    const fetchAll = async () => {
+      try {
+        const categoryRes = await axios.get(
+          `${import.meta.env.VITE_RENDER_API}/api/categories`
+        );
+        const serviceRes = await axios.get(
+          `${import.meta.env.VITE_RENDER_API}/api/services`
+        );
+
+        setCategories(categoryRes.data);
+        setServices(serviceRes.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        toast.error(
+          'Couldn’t load live service data. Showing fallback content.'
+        );
+        setCategories(categoriesDummyData);
+        setServices(serviceDummyData);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAll();
   }, []);
 
   if (loading) return <Loading />;
