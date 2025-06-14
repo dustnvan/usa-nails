@@ -13,4 +13,4 @@ A mobile-first web application for a beauty salon that allows users to select da
 - Express.js
 - MongoDB 
 
-
+[Live Website](https://usa-nails.vercel.app/)
