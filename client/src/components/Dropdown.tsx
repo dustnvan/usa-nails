@@ -2,13 +2,20 @@ import ServiceCategory from './ServiceCategory';
 import ServiceOption from './ServiceOption';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Category, Service, Staff } from '../types/booking';
+interface DropdownProps {
+  category: Category;
+  setSelectedService: (service: Service) => void;
+  selectedStaff: Staff | null;
+  services: Service[];
+}
 
 const Dropdown = ({
   category,
   setSelectedService,
   selectedStaff = null,
   services,
-}) => {
+}: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   let filteredServiceData = services;
@@ -23,7 +30,7 @@ const Dropdown = ({
   }
   // Check if there are any services in the category that are visible
   const hasVisibleServices = filteredServiceData.some(
-    (service) => service.category.name === category.name
+    (service) => service.category?.name === category.name
   );
 
   if (!hasVisibleServices) return null;
@@ -47,7 +54,7 @@ const Dropdown = ({
             className="overflow-hidden"
           >
             {filteredServiceData
-              .filter((service) => service.category.name === category.name)
+              .filter((service) => service.category?.name === category.name)
               .map((service) => (
                 <ServiceOption
                   key={service._id}
